@@ -82,4 +82,11 @@ GitHub允许添加多个key。多台电脑可以都生成ssh key，然后都添�
 master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支；
 如果有了新的分支，如dev，HEAD指向dev，就意味着当前分支在dev上；
 ![master分支](https://www.liaoxuefeng.com/files/attachments/919022325462368/0 "master分支")
+查看分支：`git branch`
+创建分支：`git branch <name>` ？我没看到这个用法，创建分支用的是`git checkout -b dev`，`git switch -c dev`；
+切换分支：`git checkout <name>`或者`git switch <name>`
+创建+切换分支：`git checkout -b <name>`或者`git switch -c <name>`
+合并某分支到当前分支：`git merge <name>`
+删除分支：`git branch -d <name>`
+### 解决冲突
 
