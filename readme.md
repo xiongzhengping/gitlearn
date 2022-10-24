@@ -64,3 +64,22 @@ GitHub注册
 GitHub允许添加多个key。多台电脑可以都生成ssh key，然后都添加到GitHub，就可以在多台设备上推送了。
 提示：GitHub上的免费托管仓库，任何人都可以看到，但只有自己才能修改。
 ### 添加远程库
+关联一个远程库：`git remote add origin git@server-name:path/repo-name.git`
+关联一个远程库时必须给远程库指定一个名字，`origin`时默认习惯命名；
+关联后，使用命令`git push -u origin master`第一次推送master分支的所有内容；
+伺候，每次本地提交后，只要有必要，就可以使用玲玲`git push origin master`推送最新的修改；
+`git remote -v`，查看远程库信息；
+`git remote rm origin`，删除远程库（逻辑上解绑，实际物理上删除远程库需要去GitHub删除）；
+### 从远程库克隆
+`$ git clone git@github.com:yourname/repo-name.git`
+从远程克隆一个本地库；
+除了git@github.com这种格式，还有`https://github.com/yourname/repo-name.git`这样的地址，https除了速度慢以外，最大的麻烦事每次推送必须输入口令；
+
+## 分支管理
+其他版本控制系统如SVN豆油分支管理，但用过之后你会发现，慢如蜗牛。
+但Git的分支是与众不同的，无论创建、切换和删除分支，Git在一秒钟之内就能完成，无论1个文件还是1w个文件。
+### 创建与合并分支
+master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支；
+如果有了新的分支，如dev，HEAD指向dev，就意味着当前分支在dev上；
+![master分支](https://www.liaoxuefeng.com/files/attachments/919022325462368/0 "master分支")
+
