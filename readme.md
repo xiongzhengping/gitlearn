@@ -76,7 +76,7 @@ GitHub允许添加多个key。多台电脑可以都生成ssh key，然后都添�
 除了git@github.com这种格式，还有`https://github.com/yourname/repo-name.git`这样的地址，https除了速度慢以外，最大的麻烦事每次推送必须输入口令；
 
 ## 分支管理
-其他版本控制系统如SVN豆油分支管理，但用过之后你会发现，慢如蜗牛。
+其他版本控制系统如SVN都有分支管理，但用过之后你会发现，慢如蜗牛。
 但Git的分支是与众不同的，无论创建、切换和删除分支，Git在一秒钟之内就能完成，无论1个文件还是1w个文件。
 ### 创建与合并分支
 master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支；
@@ -96,4 +96,18 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 当merge出现冲突的时候，冲突的文件内会提示冲突的内容。可以直接修改。
 `$ git log --graph --pretty=oneline --abbrev-commit`可以查看树状分支合并图。
 ### 分支管理策略
+通常，合并分支时，Git会用`fast-forword`模式，在这种模式下，删除分支后，会丢掉分支信息。
+如果强制禁用`fast-forword`模式，merge时就会生成一个新的commit，这样，就可以从分支历史上看出分支信息。
+`git merge --no-ff -m "merge with no-ff" dev`
+在`git log --graph --pretty=oneline --abbrev-commit`中，可以显示dev分支的提交信息。（即使dev分支被删除后）
+**分支策略**
+首先，master分支应该非常稳定，仅用来发布新版本，平时不在上面干活。
 
+干活都在dev分支上，dev是不稳定的，到某个时刻，比如1.0版本发布时，再把dev分支合并到master分支上。
+
+每个人都有自己的分支，时不时的往dev上合并即可。
+
+![分支管理策略](https://www.liaoxuefeng.com/files/attachments/919023260793600/0 "分支管理策略")
+
+### bug分支
+在Git中，由于分支是如此强大，所以，每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。
