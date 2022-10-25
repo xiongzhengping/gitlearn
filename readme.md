@@ -98,7 +98,9 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 ### 分支管理策略
 通常，合并分支时，Git会用`fast-forword`模式，在这种模式下，删除分支后，会丢掉分支信息。
 如果强制禁用`fast-forword`模式，merge时就会生成一个新的commit，这样，就可以从分支历史上看出分支信息。
+
 `git merge --no-ff -m "merge with no-ff" dev`
+
 在`git log --graph --pretty=oneline --abbrev-commit`中，可以显示dev分支的提交信息。（即使dev分支被删除后）
 **分支策略**
 首先，master分支应该非常稳定，仅用来发布新版本，平时不在上面干活。
