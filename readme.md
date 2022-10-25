@@ -125,3 +125,50 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 当手头工作没有完成时，先把工作现场`git stash`以下，然后去修复bug，修复后，再`git stash pop`，回到工作现场；
 
 在master分支上修复的bug，想要合并到当前dev分支，可以用`git cherry-pick <commit>`命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
+### feature分支
+
+开发一个新的功能，最好新建一个分支，在上面开发，完成后，合并，最后，删除该分支；
+
+如果要丢弃一个没有被合并过的分支，可以通过`git branch -D <name>`强行删除；
+
+### 多人协作
+
+从远程克隆仓库时，实际上自动把本地的master分支和远程的master分支对应起来，远程仓库的master分支默认名称是origin；
+
+#### 推送分支
+
+推送分支时，要指定本地分支；
+
+* master分支是主分支，需要时刻与远程同步；
+* dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+* bug分支只用于在本地修复bug，没必要推送到远程，除非有明确的要求；
+* feature分支是否推送到远端，取决于是否和他人合作开发；
+
+#### 抓取分支
+
+多人协作时，大家都会向master和dev上推送各自的修改；
+
+从远程库clone时，默认情况只能看到本地的master分支；
+
+如果需要在dev分支上开发，那就必须创建远程库origin的dev分支到本地；
+
+`$ git checkout -b dev origin/dev`
+
+是不是把dev分支推送到远程：
+
+`$ git push origin dev`
+
+如果大家都对origin/dev分支推送了提交，那么后提交的人会提示推送失败，有冲突，先用`git pull`把最新的提交从`origin/dev`抓下来，在本地合并，解决冲突后，再推送；
+
+git pull失败，是因为没有指定本地dev分支与远程origin/dev分支的链接
+
+`git branch --set-upstream-to=origin/dev dev`
+
+因此，多人协作的工作模式通常是这样：
+1. 首先，可以试图用`git push origin <branchname>`推送自己的修改；
+2. 如果推送失败，则因为远程文件比你的本地更新，需要先用`git pull`试图合并；
+3. 如果合并有冲突，则解决冲突，并在本地提交；
+4. 没有冲突或者解决掉冲突后，在用`git push origin <branch_name>`推送就能成功。
+
+如果`git pull`提示`no tracking information`，则说明本地分支与远程分支的链接关系没有创建，用命令`git branch --set-upstream-to=origin/dev dev`
