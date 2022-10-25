@@ -172,3 +172,30 @@ git pull失败，是因为没有指定本地dev分支与远程origin/dev分支�
 4. 没有冲突或者解决掉冲突后，在用`git push origin <branch_name>`推送就能成功。
 
 如果`git pull`提示`no tracking information`，则说明本地分支与远程分支的链接关系没有创建，用命令`git branch --set-upstream-to=origin/dev dev`
+
+### Rebase
+
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比；
+
+## 标签管理
+
+发布一个版本时，我们通常现在版本库中打一个标签（tag），这样就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来，所以，标签也是版本库的一个快照。
+
+git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像，但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。
+
+tag是一个让人容易记住的有意义的名字，跟某个commit绑定在一起。
+
+### 创建标签
+
+* 命令`git tag <tagname>`用于新建一个标签，默认为HEAD，也可以指定一个commit_id`git tag <tagname> commit_id`；
+* 命令`git tag -a <tagname> -m "blablabla...."`可以指定标签对应的信息
+* 命令`git tag`可以查看所有标签
+
+### 操作标签
+
+* `git push origin <tagname>`，推送一个本地标签；
+* `git push origin --tags`，推送全部未推送过的本地标签；
+* `git tag -d <tagname>`，可以删除一个本地标签；
+* `git push origin :refs/tags/<tagname>`，可以删除一个远程标签；
