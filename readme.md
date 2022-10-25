@@ -91,10 +91,15 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 合并某分支到当前分支：`git merge <name>`
 删除分支：`git branch -d <name>`
 ### 解决冲突
+
 当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+
 解决冲突就是把Git合并失败的文件手动编辑成我们希望的内容，再提交。
+
 当merge出现冲突的时候，冲突的文件内会提示冲突的内容。可以直接修改。
+
 `$ git log --graph --pretty=oneline --abbrev-commit`可以查看树状分支合并图。
+
 ### 分支管理策略
 通常，合并分支时，Git会用`fast-forword`模式，在这种模式下，删除分支后，会丢掉分支信息。
 如果强制禁用`fast-forword`模式，merge时就会生成一个新的commit，这样，就可以从分支历史上看出分支信息。
@@ -102,7 +107,9 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 `git merge --no-ff -m "merge with no-ff" dev`
 
 在`git log --graph --pretty=oneline --abbrev-commit`中，可以显示dev分支的提交信息。（即使dev分支被删除后）
+
 **分支策略**
+
 首先，master分支应该非常稳定，仅用来发布新版本，平时不在上面干活。
 
 干活都在dev分支上，dev是不稳定的，到某个时刻，比如1.0版本发布时，再把dev分支合并到master分支上。
@@ -112,4 +119,5 @@ master是一个分支，在Git里，这个分支叫做主分支，HEAD严格来�
 ![分支管理策略](https://www.liaoxuefeng.com/files/attachments/919023260793600/0 "分支管理策略")
 
 ### bug分支
+
 在Git中，由于分支是如此强大，所以，每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。
